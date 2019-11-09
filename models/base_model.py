@@ -4,10 +4,11 @@
 
 from datetime import datetime
 from uuid import uuid4
+from models import storage
 
 
 class BaseModel:
-    """Defines all common attributes/methods for other classes"""
+    """ Defines all common attributes/methods for other classes """
     def __init__(self, *args, **kwargs):
         if kwargs:
             for key, value in kwargs.items():
@@ -23,6 +24,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """ Print str """
@@ -30,18 +32,16 @@ class BaseModel:
         return("[{}] ({}) {}".format(name_c, self.id, self.__dict__))
 
     def save(self):
-        """
-        save - Updates the public instance
-        with the current time
-        """
+        """ Save - Updates the public instance with the current time """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
-        """Returns a dictionary containing
-        all keys/values of __dict__ """
+        """ Returns a dictionary containing all keys/values of __dict__ """
         new_dict = self.__dict__.copy()
 
         new_dict.update({"created_at": self.created_at.isoformat()})
         new_dict.update({"updated_at": self.updated_at.isoformat()})
         new_dict.update({"__class__": __class__.__name__})
+
         return new_dict
