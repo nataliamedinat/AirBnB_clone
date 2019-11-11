@@ -2,7 +2,7 @@
 """ Serialization and desarialization JSON """
 
 import json
-from models.base_model import BaseModel
+import models
 
 class FileStorage:
     """ Serializes instances to a JSON file 
@@ -25,14 +25,19 @@ class FileStorage:
         for key_dict in self.__objects:
             j_obj[key_dict] = self.__objects[key_dict].to_dict()
         with open(self.__file_path, "w") as op_r:
-            json.dump(j_obj, op_r)
+            op_r.write(json.dumps(j_obj))
+            #json.dumps(j_obj, op_r)
 
     def reload(self):
         """ Deserializes the JSON file to __objects """
         try:
             with open(self.__file_path) as op_r:
-                self.__objects = json.loads(file.read())
-
+                """self.__objects = json.load(file.read())"""
+                receiver = json.loads(op_r.read())
+                for key, value in receiver.items():
+                    split_class = key.split('.')[0]
+                    obj = models.classes[split_class](**value)
+                    self.__objects[key] = obj
         except:
            pass
 
