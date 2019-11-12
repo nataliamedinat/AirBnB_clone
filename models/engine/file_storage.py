@@ -38,5 +38,5 @@ class FileStorage:
                     split_class = key.split('.')[0]
                     obj = models.classes[split_class](**value)
                     self.__objects[key] = obj
-        except Exception:
+        except:
             pass
