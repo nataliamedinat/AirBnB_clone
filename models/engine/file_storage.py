@@ -4,8 +4,9 @@
 import json
 import models
 
+
 class FileStorage:
-    """ Serializes instances to a JSON file 
+    """ Serializes instances to a JSON file
         and deserializes JSON file to instances """
     __file_path = "file.json"
     __objects = {}
@@ -26,7 +27,6 @@ class FileStorage:
             j_obj[key_dict] = self.__objects[key_dict].to_dict()
         with open(self.__file_path, "w") as op_r:
             op_r.write(json.dumps(j_obj))
-            #json.dumps(j_obj, op_r)
 
     def reload(self):
         """ Deserializes the JSON file to __objects """
@@ -38,6 +38,5 @@ class FileStorage:
                     split_class = key.split('.')[0]
                     obj = models.classes[split_class](**value)
                     self.__objects[key] = obj
-        except:
-           pass
-
+        except Exception:
+            pass

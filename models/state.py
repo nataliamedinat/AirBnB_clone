@@ -8,7 +8,7 @@ class State(BaseModel):
     name = ""
 
     def __init__(*args, **kwargs):
-        """ Initialization 
+        """ Initialization
             Attribute
                 Initializates the BaseModel attrs
         """
