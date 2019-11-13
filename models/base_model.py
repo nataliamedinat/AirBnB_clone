@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ Module Base """
 
-
 from datetime import datetime
 from uuid import uuid4
 import models
@@ -10,6 +9,7 @@ import models
 class BaseModel:
     """ Defines all common attributes/methods for other classes """
     def __init__(self, *args, **kwargs):
+        """ Initialization """
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at":
@@ -24,7 +24,7 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.updated_at = created_at
             models.storage.new(self)
 
     def __str__(self):
