@@ -24,11 +24,8 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
-<<<<<<< HEAD
             self.updated_at = self.created_at
-=======
             self.updated_at = datetime.now()
->>>>>>> ed3cd514d002dbe5828caec4f0168263f34c18d9
             models.storage.new(self)
 
     def __str__(self):
