@@ -33,13 +33,12 @@ class FileStorage:
         try:
             with open(self.__file_path) as op_r:
                 """self.__objects = json.load(file.read())"""
-                file_str = op_r.read()
-                if len(file_str) == 0:
-                    return
                 receiver = json.loads(op_r.read())
+                print("--------------------------------")
+                print("len: " + len(receiver))
                 for key, value in receiver.items():
                     split_class = key.split('.')[0]
                     obj = models.classes[split_class](**value)
-                    self.__objects[key] = obj
+                    self.__objects.update({key: ob})
         except:
             pass
