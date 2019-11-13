@@ -9,7 +9,3 @@ class User(BaseModel):
     password = ""
     first_name = ""
     last_name = ""
-
-    def __init__(*args, **kwargs):
-        """ Initialization of  father class """
-        super().__init__(*args, **kwargs)
