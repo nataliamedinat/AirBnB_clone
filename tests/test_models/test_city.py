@@ -3,19 +3,20 @@
 
 import unittests
 import pep8
-from models import import City
+from models import City
 from models.base_model import BaseModel
+City = city.City
 
 class Test_City(unittest.TestCase):
     """ Tests class city """
 
     def test_docstring(self):
         """ Tests docstring """
-        self.assertisNotNone(Amenity.__doc__)
+        self.assertIsNotNone(amenity.__doc__, "Needs docstring")
 
     def test_documentation(self):
         """ Test documentation """
-        self.assertTrue(Amenity.__doc__)
+        self.assertTrue(amenity.__doc__, "Needs documentation")
 
     def test_pep8(self):
         """ Tests pep8 """
@@ -25,46 +26,41 @@ class Test_City(unittest.TestCase):
 
     def test_child_City(self):
         """ Tests if the class City is a child class """
-        user = user()
-        self.assertIsInstance(User, BaseModel)
+        city = City()
+        self.assertIsInstance(city, BaseModel)
         self.assertTrue(hasattr(user, "id"))
         self.assertTrue(hasattr(user, "created_at"))
-        self.assertTrue(hasattr(user, "updated_at")
-
-    def test_attrs(self):
-        """ Tests the attrs """
-        self.assertEqual("name", " ")
-        self.assertEqual("state_id", " ")
+        self.assertTrue(hasattr(user, "updated_at"))
 
     def test_name(self):
         """ Tests the attrs name """
-        user = user()
+        city = City()
         self.assertTrue(hasattr(city, "name"))
-        self.assertEqual(city.name, " ")
+        self.assertEqual(city.name, "")
 
     def test_state_id(self):
         """ Tests the attr state_id """
-        user = user()
+        city = City()
         self.assertTrue(hasattr(city, "state_id"))
-        self.assertEqual(city.state_id, " ")
+        self.assertEqual(city.state_id, "")
 
     def test_str(self):
         """ Tests the str magic method """
-        user = user()
-        result = "[user] ({}) {}".format(user.id, user.__dict__)
-        self.assertEqual(result, str(User))
+        city = City()
+        result = "[City] ({}) {}".format(city.id, city.__dict__)
+        self.assertEqual(result, str(city))
 
     def test_to_dict_f(self):
         """ Tests the dictionary that comes from the father class """
-        user = user()
-        new_dict = user.to_dict()
+        city = City()
+        new_dict = city.to_dict()
         self.assertEqual(type(new_dict), dict)
 
     def test_to_dict_result(self):
         """ Tests the result of the dict """
-        user = user()
-        new_dict = user.to_dict()
-        self.assertEqual(new_dict["__class__"], "User")
+        city = City()
+        new_dict = city.to_dict()
+        self.assertEqual(new_dict["__class__"], "City")
         self.assertEqual(type(new_dict["created_at"]), str)
         self.assertEqual(type(new_dict["updated_at"]), str)
         self.assertEqual(type(new_dict["id"]), str)

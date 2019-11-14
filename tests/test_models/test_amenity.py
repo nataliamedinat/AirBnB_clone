@@ -3,9 +3,9 @@
 
 import unittest
 import pep8
-from models.basemodel import BaseModel
-from models.amenity import amenity
-user = user()
+from models.base_model import BaseModel
+from models import amenity
+Amenity = amenity.Amenity
 
 
 class Test_Amenity(unittest.TestCase):
@@ -13,7 +13,7 @@ class Test_Amenity(unittest.TestCase):
 
     def test_docstring(self):
         """ Tests """
-        self.assertisNotNone(Amenity.__doc__)
+        self.assertIsNotNone(amenity.__doc__, "Needs docstring")
 
     def test_pep8(self):
         """ Tests the pep8 """
@@ -23,18 +23,15 @@ class Test_Amenity(unittest.TestCase):
 
     def test_documentation(self):
         """ Tests documentation """
-        self.assertTrue(hasattr(Amenity.__doc__))
-        self.assertTrue(Amenity.__doc__)
-        self.assertTrue(hasattr(__init__.__doc__))
-        self.assertTrue(amenity.__doc__)
+        self.assertTrue(amenity.__doc__, "Needs documentation")
 
     def test_child_amenity(self):
         """ Tests if th class amenity is a child class """
-        user = user()
-        self.assertIsInstance(User, BaseModel)
-        self.assertTrue(hasattr(user, "id"))
-        self.assertTrue(hasattr(user, "created_at"))
-        self.assertTrue(hasattr(user, "updated_at"))
+        amenity = Amenity()
+        self.assertIsInstance(amenity, BaseModel)
+        self.assertTrue(hasattr(amenity, "id"))
+        self.assertTrue(hasattr(amenity, "created_at"))
+        self.assertTrue(hasattr(amenity, "updated_at"))
 
     def test_attrs(self):
         """ Tests the attr """
@@ -42,27 +39,27 @@ class Test_Amenity(unittest.TestCase):
 
     def test_name_attr(self):
         """ Tests the name attribute """
-        user = user()
-        self.assertTrue(hasattr(user, "name"))
-        self.assertEqual(user.name, " ")
+        amenity = Amenity()
+        self.assertTrue(hasattr(amenity, "name"))
+        self.assertEqual(amenity.name, "")
 
     def test_str(self):
         """ Tests the str magic method"""
-        user = user()
-        result = "[user] ({}) {}".format(user.id, user.__dict__)
-        self.assertEqual(result, str(User))
+        amenity = Amenity()
+        result = "[Amenity] ({}) {}".format(amenity.id, amenity.__dict__)
+        self.assertEqual(result, str(amenity))
 
     def test_to_dict_f(self):
         """ Tests the dictionary that comes from the father class"""
-        user = user()
-        new_dict = user.to_dict()
+        amenity = Amenity()
+        new_dict = amenity.to_dict()
         self.assertEqual(type(new_dict), dict)
 
     def test_to_dict_result(self):
         """ Tests the result of the dict"""
-        user = user()
-        new_dict = user.to_dict()
-        self.assertEqual(new_dict["__class__"], "User")
+        amenity = Amenity()
+        new_dict = amenity.to_dict()
+        self.assertEqual(new_dict["__class__"], "Amenity")
         self.assertEqual(type(new_dict["created_at"]), str)
         self.assertEqual(type(new_dict["updated_at"]), str)
         self.assertEqual(type(new_dict["id"]), str)

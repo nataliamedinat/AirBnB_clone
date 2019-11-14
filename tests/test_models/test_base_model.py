@@ -3,7 +3,7 @@
 
 import unittest
 import pep8
-from models.basemodel import base_model
+from models.base_model import BaseModel
 from models import amenity
 from models import city
 from models import place
