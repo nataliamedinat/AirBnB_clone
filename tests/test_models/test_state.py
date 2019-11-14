@@ -5,19 +5,19 @@ import unittest
 import pep8
 from models import State
 from models.base_model import BaseModel
-user = user()
+State = state.State
 
 
 class Test_State(unittest.TestCase):
     """ Tests class State """
 
     def test_docstring(self):
-        """ Test for doctring """
-        self.assertisnotNone(State.__doc__)
+        """ Test for docstring """
+        self.assertIsnotNone(state.__doc__, "Needs docstring")
 
     def test_documentation(self):
         """ Tests documentation """
-        self.assertTrue(State.__doc__)
+        self.assertTrue(state.__doc__, "Needs documentation")
 
     def test_pep8(self):
         """ Tests pep8 """
@@ -27,39 +27,35 @@ class Test_State(unittest.TestCase):
 
     def test_child_State(self):
         """ Tests if the class State is a child class """
-        user = user()
-        self.assertIsInstance(User, BaseModel)
-        self.assertTrue(hasattr(user, "id")
-        self.assertTrue(hasattr(user, "created_at"))
-        self.assertTrue(hasattr(user, "updated_at"))
-
-    def test_attrs(self):
-        """ Tests attrs of class State """
-        self.assertEqual("name", " ")
+        state = State()
+        self.assertIsInstance(state, BaseModel)
+        self.assertTrue(hasattr(state, "id")
+        self.assertTrue(hasattr(state, "created_at"))
+        self.assertTrue(hasattr(state, "updated_at"))
 
     def test_name(self):
         """ Tests for the attr name"""
-        user = user()
-        self.assertTrue(hasattr(user, "name"))
-        self.assertEqual(user.name, " "))
+        state = State()
+        self.assertTrue(hasattr(state, "name"))
+        self.assertEqual(state.name, ""))
 
     def test_str(self):
         """ Tests str magic method """
-        user = user()
-        result = "[user] ({}) {}".format(user.id, user.__dict__)
-        self.assertEqual(result, str(User))
+        state = State()
+        result = "[State] ({}) {}".format(state.id, state.__dict__)
+        self.assertEqual(result, str(State))
 
     def test_to_dict_f(self):
         """ Tests the dictionary that comes from the father class """
-        user = user()
-        new_dict = user.to_dict()
+        state = State()
+        new_dict = state.to_dict()
         self.assertEqual(type(new_dict), dict)
 
     def test_to_dict_result(self):
         """ Tests the result of the dict """
-        user = user()
-        new_dict = user.to_dict()
-        self.assertEqual(new_dict["__class__"], "User")
+        state = State()
+        new_dict = state.to_dict()
+        self.assertEqual(new_dict["__class__"], "State")
         self.assertEqual(type(new_dict["created_at"]), str)
         self.assertEqual(type(new_dict["updated_at"]), str)
         self.assertEqual(type(new_dict["id"]), str)
