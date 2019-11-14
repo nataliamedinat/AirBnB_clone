@@ -33,6 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Creates a new instance, saves it(to the JSON file)
             and prints the id """
+        split_args = shlex.split(args)
         if not (args):
             print("** class name missing **")
             return
@@ -98,31 +99,59 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Prints all str representation of all instances """
         split_args = shlex.split(args)
-        try:
-            exs_clss = classes[split_args]
-        except Exception:
-            print("** class doesn't exist **")
-            return
         n_list = []
-        for key in models.storage.all():
-            n_list.append(str(models.storage.all()[key]))
+        dict_json = models.storage.all()
+        if args:
+            try:
+                for key in models.storage.all():
+                    if split_args[0] == key.split('.')[0]:
+                        n_list.append(str(dict_json[key]))
+                print(n_list)
+            except Exception:
+                print("** class doesn't exist **")
+        else:
+            for key in models.storage.all():
+                 n_list.append(str(models.storage.all()[key]))
             print(n_list)
 
-    def do_update(slef, args):
+    def do_update(self, args):
         """ Updates an instance based on the class name and id """
+        split_args = shlex.split(args)
+        obj = args[1] + '.' + args[1].id
         if not (args):
             print("** class name missing **")
+            return
 
         try:
-            exs_clss = classes[args]
+            exs_clss = classes[split_args[0]]
         except Exception:
             print("** class doesn't exist **")
             return
         try:
-            split_args = args.split(" ")[1]
+            split_args[1]
         except Exception:
             print("** instance id missing **")
             return
+        key = split_args[0] + "." + split_args[1]
+        if key in models.storage.all():
+            print(models.storage.all[key])
+        else:
+            print("** no instance found **")
+        try:
+            spl = split_args[2]
+        except Exception:
+            print("** attribute name missing **")
+            return
+        try:
+            split_args[3]
+        except Exception:
+            print("** value missing **")
+            return
+        if spl != 'created_at' or spl != 'updated_at' or spl != 'id':
+            if hasattr(obj, spl):
+                setattr(obj, spl, type(getattr(obj, spl))(split_args[3]))
+            else:
+                obj.__dict__[spl] = split_args[3]
 
 console = HBNBCommand()
 console.cmdloop()

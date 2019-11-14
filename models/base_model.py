@@ -30,7 +30,7 @@ class BaseModel:
 
     def __str__(self):
         """ Print str """
-        name_c = __class__.__name__
+        name_c = self.__class__.__name__
         return("[{}] ({}) {}".format(name_c, self.id, self.__dict__))
 
     def save(self):
