@@ -5,6 +5,8 @@ import cmd
 from models import classes
 import json
 from models.engine import file_storage
+import shlex
+import models
 
 class HBNBCommand(cmd.Cmd):
     """ Console for AirBnb
@@ -47,27 +49,28 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, args):
         """ Prints str representation of an instance """
+        split_args = shlex.split(args)
 
         if not (args):
             print("** class name missing **")
             return
         try:
-            exs_clss = classes[args.split (" ")[0]]
+            exs_clss = classes[split_args[0]]
         except Exception:
             print("** class doesn't exist **")
             return
         try:
-            split_args = args.split(" ")[1]
+            split_args[1]
         except Exception:
             print("** instance id missing **")
             return
 
-        for key in classes.keys():
-            if classes.key[args[0]].id == args[1]:
-                print(classes[args]())
-            else:
-                print("** no instance found **")
-    
+        key = split_args[0] + "." + split_args[1]
+        if key in models.storage.all():
+            print(models.storage.all()[key])
+        else:
+            print("** no instance found **")
+        
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class and id """
