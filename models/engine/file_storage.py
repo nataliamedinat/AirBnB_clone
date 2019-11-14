@@ -3,6 +3,7 @@
 
 import json
 import models
+import os
 
 
 class FileStorage:
@@ -30,13 +31,10 @@ class FileStorage:
 
     def reload(self):
         """ Deserializes the JSON file to __objects """
-    try:
-        with open("self.__file_path") as op_r:
-            """self.__objects = json.load(file.read())"""
-            receiver = json.loads(op_r.read())
-            for key, value in receiver.items():
-                split_class = key.split('.')[0]
-                obj = models.classes[split_class](**value)
-                self.__objects.update({key: obj})
-    except FileNotFoundError:
-        pass
+        if os.path.exists("file.json"):
+            with open(self.__file_path, 'r') as op_r:
+                receiver = json.loads(op_r.read())
+                for key, value in receiver.items():
+                    split_class = key.split('.')[0]
+                    obj = models.classes[split_class](**value)
+                    self.__objects.update({key: obj})

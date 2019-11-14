@@ -11,9 +11,9 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """ Initialization """
         if kwargs:
+            date_format = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
                 if key == "created_at":
-                    date_format = "%Y-%m-%dT%H:%M:%S.%f"
                     self.created_at = datetime.strptime(value, date_format)
                 elif key == "updated_at":
                     self.updated_at = datetime.strptime(value, date_format)
