@@ -8,6 +8,7 @@ from models.engine import file_storage
 import shlex
 import models
 
+
 class HBNBCommand(cmd.Cmd):
     """ Console for AirBnb
  """
@@ -71,7 +72,6 @@ class HBNBCommand(cmd.Cmd):
             print(models.storage.all()[key])
         else:
             print("** no instance found **")
-        
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class and id """
@@ -95,7 +95,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
-
     def do_all(self, args):
         """ Prints all str representation of all instances """
         split_args = shlex.split(args)
@@ -111,47 +110,34 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             for key in models.storage.all():
-                 n_list.append(str(models.storage.all()[key]))
+                n_list.append(str(models.storage.all()[key]))
             print(n_list)
 
     def do_update(self, args):
         """ Updates an instance based on the class name and id """
         split_args = shlex.split(args)
-        obj = args[1] + '.' + args[1].id
         if not (args):
             print("** class name missing **")
             return
-
-        try:
-            exs_clss = classes[split_args[0]]
-        except Exception:
-            print("** class doesn't exist **")
-            return
-        try:
-            split_args[1]
-        except Exception:
-            print("** instance id missing **")
-            return
-        key = split_args[0] + "." + split_args[1]
-        if key in models.storage.all():
-            print(models.storage.all[key])
-        else:
-            print("** no instance found **")
-        try:
-            spl = split_args[2]
-        except Exception:
-            print("** attribute name missing **")
-            return
-        try:
-            split_args[3]
-        except Exception:
-            print("** value missing **")
-            return
-        if spl != 'created_at' or spl != 'updated_at' or spl != 'id':
-            if hasattr(obj, spl):
-                setattr(obj, spl, type(getattr(obj, spl))(split_args[3]))
+        if split_args[0] in classes:
+            if len(split_args) > 1:
+                key = split_args[0] + "." + split_args[1]
+                if key in models.storage.all():
+                    if len(split_args) > 2:
+                        if len(split_args) > 3:
+                            setattr(models.storage.all()[key],
+                                    split_args[2], split_args[3])
+                            models.storage.all()[key].save()
+                        else:
+                            print("** value missing **")
+                    else:
+                        print("** attribute name missing **")
+                else:
+                    print("** no instance found **")
             else:
-                obj.__dict__[spl] = split_args[3]
+                print("** instance id missing **")
+        else:
+            print("** class doesn´t exist **")
 
 console = HBNBCommand()
 console.cmdloop()
