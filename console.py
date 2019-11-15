@@ -115,18 +115,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """ Updates an instance based on the class name and id """
-        split_args = shlex.split(args)
-        if not (args):
+        split_arg = shlex.split(args)
+        if len(split_arg) == 0:
             print("** class name missing **")
-            return
-        if split_args[0] in classes:
-            if len(split_args) > 1:
-                key = split_args[0] + "." + split_args[1]
+            return False
+        if split_arg[0] in options:
+            if len(split_arg) > 1:
+                key = split_arg[0] + '.' + split_arg[1]
                 if key in models.storage.all():
-                    if len(split_args) > 2:
-                        if len(split_args) > 3:
-                            setattr(models.storage.all()[key],
-                                    split_args[2], split_args[3])
+                    if len(split_arg) > 2:
+                        if len(split_arg) > 3:
+                            setattr(models.storage.all()[key], split_arg[2], split_arg[3])
                             models.storage.all()[key].save()
                         else:
                             print("** value missing **")
@@ -137,7 +136,12 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** instance id missing **")
         else:
-            print("** class doesn´t exist **")
+            print("** class doesn't exist **")
+
+
+
+
+
 
 console = HBNBCommand()
 console.cmdloop()
