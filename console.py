@@ -119,13 +119,14 @@ class HBNBCommand(cmd.Cmd):
         if len(split_arg) == 0:
             print("** class name missing **")
             return False
-        if split_arg[0] in options:
+        if split_arg[0] in classes:
             if len(split_arg) > 1:
                 key = split_arg[0] + '.' + split_arg[1]
                 if key in models.storage.all():
                     if len(split_arg) > 2:
                         if len(split_arg) > 3:
-                            setattr(models.storage.all()[key], split_arg[2], split_arg[3])
+                            setattr(models.storage.all()[key],
+                            split_arg[2], split_arg[3])
                             models.storage.all()[key].save()
                         else:
                             print("** value missing **")
@@ -137,10 +138,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
-
-
-
-
 
 
 console = HBNBCommand()
