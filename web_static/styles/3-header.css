@@ -6,7 +6,7 @@ header{
 
 }
 .logo{
-    background-image: url("../images/logo.png") no-repeat;
+    background-image: url("../images/logo.png") no-repeat center;
     padding-left: 20px;
     width: 142%;
     height: 60px;
