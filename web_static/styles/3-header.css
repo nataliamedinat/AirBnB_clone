@@ -3,12 +3,6 @@ header{
     height: 70px;
     width: 100%;
     border-bottom: 1px #CCCCCC;
-
-}
-header .logo{
     background-image: url("../images/logo.png") no-repeat;
-    padding-left: 20px;
-    width: 142%;
-    height: 60px;
-    background-position: left;
+    background-position: 20px;
 }
